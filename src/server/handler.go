@@ -1,7 +1,7 @@
 package server
 
 import (
-	"prac/src/ascii"
+	"ascii-web-app/src/ascii"
 	"html/template"
 	"net/http"
 )
@@ -37,7 +37,7 @@ func Handleascii(w http.ResponseWriter, r *http.Request) {
 		text := r.FormValue("text")
 		banner := r.FormValue("banner")
 
-		if text == "" && banner=="" {
+		if text == "" && banner == "" {
 			w.WriteHeader(400)
 			return
 		}
@@ -51,11 +51,11 @@ func Handleascii(w http.ResponseWriter, r *http.Request) {
 		}
 
 		baner, _ := ascii.Banner(banner)
-		render:=ascii.Render(text, baner)
+		render := ascii.Render(text, baner)
 
-		rezult.Text=text
-		rezult.Banner=banner
-		rezult.Result=render
+		rezult.Text = text
+		rezult.Banner = banner
+		rezult.Result = render
 	}
 	tmpl.Execute(w, rezult)
 }
@@ -70,7 +70,7 @@ func Handleswitch(w http.ResponseWriter, r *http.Request) {
 		text := r.URL.Query().Get("text")
 		banner := r.URL.Query().Get("banner")
 
-		if text == "" && banner=="" {
+		if text == "" && banner == "" {
 			w.WriteHeader(400)
 			return
 		}
@@ -84,11 +84,11 @@ func Handleswitch(w http.ResponseWriter, r *http.Request) {
 		}
 
 		baner, _ := ascii.Banner(banner)
-		render:=ascii.Render(text, baner)
+		render := ascii.Render(text, baner)
 
-		rezult.Text=text
-		rezult.Banner=banner
-		rezult.Result=render
+		rezult.Text = text
+		rezult.Banner = banner
+		rezult.Result = render
 	}
 	tmpl.Execute(w, rezult)
 }
