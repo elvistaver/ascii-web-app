@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 	"net/http"
-	"prac/src/server"
+	"ascii-web-app/src/server"
 )
 
 func main() {
