@@ -11,7 +11,7 @@
     <br>
     <br>
     <form action="/art" method="post">
-        <textarea name="text" placeholder="write text">{{.Text}}</textarea>
+        <textarea name="text" placeholder="write text" style="width: 240px; height: 220px;">{{.Text}}</textarea>
         <br>
         <select name="banner">
             <option value="standard">standard</option>
@@ -23,7 +23,7 @@
     <div>
 
         {{if .Result}}
-        <textarea style="background-color: black; color: white; width: 1840px; height: 500px;" name="text" placeholder="result" >{{.Result}}</textarea>
+        <textarea style="background-color: black; color: white; width: 1840px; height: 500px;" name="result" placeholder="result" >{{.Result}}</textarea>
         <br>
     <a href="http://localhost:8080/ascii-art-switch?text={{.Text}}&banner=standard" class="active">Standard</a>
     <a href="http://localhost:8080/ascii-art-switch?text={{.Text}}&banner=shadow" class="active">Shadow</a>
