@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>art</title>
+</head>
+<body>
+    <form action="/art" method="post">
+        <textarea name="text" placeholder="write text">{{.Text}}</textarea>
+        <br>
+        <select name="banner">
+            <option value="standard">standard</option>
+            <option value="shadow">shadow</option>
+            <option value="thinkertoy">thinkertoy</option>
+        </select>
+        <button type="submit">generate</button>
+    </form>
+    {{if .Result}}
+    <pre>{{.Result}}</pre>
+    <a href="http://localhost:8080/ascii-art-switch?text={{.Text}}&banner=standard" class="active">Standard</a>
+    <a href="http://localhost:8080/ascii-art-switch?text={{.Text}}&banner=shadow" class="active">Shadow</a>
+    <a href="http://localhost:8080/ascii-art-switch?text={{.Text}}&banner=thinkertoy" class="active">Thinkertoy</a>
+    {{end}}
+</body>
+</html>
