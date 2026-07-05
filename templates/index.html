@@ -6,6 +6,10 @@
     <title>art</title>
 </head>
 <body>
+    <h1><i>Ascii-Art Generator</i></h1>
+    <br>
+    <br>
+    <br>
     <form action="/art" method="post">
         <textarea name="text" placeholder="write text">{{.Text}}</textarea>
         <br>
@@ -16,11 +20,16 @@
         </select>
         <button type="submit">generate</button>
     </form>
-    {{if .Result}}
-    <pre>{{.Result}}</pre>
+    <div>
+
+        {{if .Result}}
+        <textarea style="background-color: black; color: white; width: 1840px; height: 500px;" name="text" placeholder="result" >{{.Result}}</textarea>
+        <br>
     <a href="http://localhost:8080/ascii-art-switch?text={{.Text}}&banner=standard" class="active">Standard</a>
     <a href="http://localhost:8080/ascii-art-switch?text={{.Text}}&banner=shadow" class="active">Shadow</a>
     <a href="http://localhost:8080/ascii-art-switch?text={{.Text}}&banner=thinkertoy" class="active">Thinkertoy</a>
     {{end}}
+    </div>
+    
 </body>
 </html>
