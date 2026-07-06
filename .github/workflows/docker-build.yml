@@ -1,0 +1,26 @@
+name: Build Docker Image
+
+# This tells GitHub to run the test every time you push code to GitHub
+on:
+  push:
+    branches: [ "main", "master" ]
+  pull_request:
+    branches: [ "main", "master" ]
+
+jobs:
+  build:
+    runs-level: ubuntu-latest
+
+    steps:
+    # 1. This copies your code from GitHub onto the cloud runner
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    # 2. This sets up Docker on GitHub's cloud computer
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v3
+
+    # 3. This runs the actual build test using your Dockerfile
+    - name: Build the Docker image
+      run: |
+        docker build -t ascii-web-app:latest .
