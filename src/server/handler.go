@@ -14,18 +14,6 @@ type PageData struct {
 
 var tmpl, err = template.ParseFiles("templates/index.html")
 
-func HandleHome(w http.ResponseWriter, r *http.Request) {
-
-	if r.URL.Path != "/" {
-		w.WriteHeader(404)
-		return
-	}
-
-	if r.URL.Path == "/" {
-		w.WriteHeader(200)
-	}
-	tmpl.Execute(w, nil)
-}
 func Handleascii(w http.ResponseWriter, r *http.Request) {
 	rezult := PageData{}
 
@@ -89,6 +77,19 @@ func Handleswitch(w http.ResponseWriter, r *http.Request) {
 		rezult.Text = text
 		rezult.Banner = banner
 		rezult.Result = render
+	}
+	tmpl.Execute(w, rezult)
+}
+func HandleHome(w http.ResponseWriter, r *http.Request) {
+	rezult := PageData{}
+
+	if r.URL.Path != "/" {
+		w.WriteHeader(404)
+		return
+	}
+
+	if r.URL.Path == "/" {
+		w.WriteHeader(200)
 	}
 	tmpl.Execute(w, rezult)
 }
