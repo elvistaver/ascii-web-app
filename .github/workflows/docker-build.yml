@@ -1,6 +1,5 @@
-name: Build Docker Image
+name: Build and Test Docker Image
 
-# This tells GitHub to run every time you push code
 on:
   push:
     branches: [ "main", "master" ]
@@ -8,20 +7,36 @@ on:
     branches: [ "main", "master" ]
 
 jobs:
-  build:
-    # FIXED: This must be 'runs-on', not 'runs-level'
+  build-and-test:
     runs-on: ubuntu-latest
 
     steps:
-    # 1. This copies your code from GitHub onto the cloud runner
     - name: Checkout code
       uses: actions/checkout@v4
 
-    # 2. This sets up Docker on GitHub's cloud computer
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v3
 
-    # 3. This runs the actual build test using your Dockerfile
+    # 1. This builds your image
     - name: Build the Docker image
       run: |
         docker build -t ascii-web-app:latest .
+
+    # 2. This runs your app in the background on port 8080
+    - name: Start the Container to Test
+      run: |
+        docker run -d -p 8080:8080 --name test-app ascii-web-app:latest
+        
+        # Give the Go app 3 seconds to start up completely
+        sleep 3
+
+    # 3. This tests if your app is actually serving web traffic!
+    - name: Test Localhost Web Response
+      run: |
+        curl -f http://localhost:8080 || exit 1
+
+    # 4. Cleanup after test passes
+    - name: Stop Container
+      if: always()
+      run: |
+        docker stop test-app && docker rm test-app
