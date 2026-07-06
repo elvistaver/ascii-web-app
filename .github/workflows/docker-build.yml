@@ -1,6 +1,6 @@
 name: Build Docker Image
 
-# This tells GitHub to run the test every time you push code to GitHub
+# This tells GitHub to run every time you push code
 on:
   push:
     branches: [ "main", "master" ]
@@ -9,7 +9,8 @@ on:
 
 jobs:
   build:
-    runs-level: ubuntu-latest
+    # FIXED: This must be 'runs-on', not 'runs-level'
+    runs-on: ubuntu-latest
 
     steps:
     # 1. This copies your code from GitHub onto the cloud runner
