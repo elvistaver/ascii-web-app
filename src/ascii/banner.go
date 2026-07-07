@@ -6,7 +6,6 @@ import("os"
 
 
 func Banner(file string)(map[rune][]string, error){
-
 	filename, err:=os.Open("banners/"+file+".txt")
 
 	if err !=nil{
