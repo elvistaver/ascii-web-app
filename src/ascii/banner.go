@@ -12,7 +12,6 @@ func Banner(file string)(map[rune][]string, error){
 		return nil, errors.New("error opening file")
 	}
 	defer filename.Close()
-
 	scanner:=bufio.NewScanner(filename)
 	slice:=[]string{}
 
