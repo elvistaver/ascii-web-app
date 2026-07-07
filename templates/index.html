@@ -19,11 +19,14 @@
             <option value="thinkertoy">thinkertoy</option>
         </select>
         <button type="submit">generate</button>
+
     </form>
     <div>
         {{if .Result}}
         <textarea style="background-color: white; color: rgb(14, 13, 13); width: 1820px; height: 500px;" name="result" placeholder="result" >{{.Result}}</textarea>
         {{end}}
     </div> 
+    <button onclick="history.back()">back</button>
+    <button onclick="history.forward()">Next</button>
 </body>
 </html>
