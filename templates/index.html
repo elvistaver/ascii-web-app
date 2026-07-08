@@ -17,20 +17,21 @@
   border-radius: 16px;             /* Rounded corners */
   padding: 40px;                   /* Breathing room inside the box */
   
-  /* Advanced effects */
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3); /* Soft outer depth shadow */
   box-sizing: border-box;          /* Keeps padding inside the width */
 }
+
 .Responsive {
   width: 100%;               /* Forces the art to match the box size */
   max-width: 100%;           /* Prevents stretching past original size */
   height: auto;              /* Maintains correct aspect ratio (no distortion) */
   display: block;            /* Removes annoying bottom white-space gaps */
   border-radius: 8px;
+  line-height: 1.6;
 }
 </style>
 <body>
-    <h1><i style="align-items: center;">Ascii-Art Generator</i></h1>
+    <h1  style="text-align: center;"><i>Ascii-Art Generator</i></h1>
     <br>
     <br>
     <br>
@@ -49,7 +50,7 @@
    
     <div class="container" class="Responsive">
         {{if .Result}}
-        <textarea style="background-color: white; color: rgb(14, 13, 13); width: 1100px; height: 400px;" name="result" placeholder="result" class="Responsive">{{.Result}}</textarea>
+        <textarea style="background-color: white; color: rgb(14, 13, 13); width: 1100px; height: 300px;" name="result" placeholder="result" class="Responsive">{{.Result}}</textarea>
         {{end}}
         <button onclick="history.back()">back</button>
         <button onclick="history.forward()">Next</button>
