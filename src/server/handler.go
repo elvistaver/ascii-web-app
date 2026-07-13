@@ -37,6 +37,24 @@ func Handleascii(w http.ResponseWriter, r *http.Request) {
 	if r.Method == "POST" {
 		text := r.FormValue("text")
 		banner := r.FormValue("banner")
+		downloadfile := r.FormValue("extensions")
+
+		if downloadfile!=""{
+			filename := fmt.Sprintf("asciiart.%s",downloadfile)
+
+		w.Header().Set("Content-Disposition", fmt.Sprintf("attachment; filename=\"%s\"",filename))
+
+		switch downloadfile{
+		case "csv":
+			w.Header().Set("Content-Type", "csv/text")
+			w.Write([]byte("column1, column2\ndata1,data2"))
+		case "pdf":
+			w.Header().Set("Content-Type", "application/pdf")
+		default:
+			w.Header().Set("Content-Type", "text/plain")
+			w.Write([]byte("this is plain text download"))
+		}
+		}
 
 		if text == "" && banner == "" {
 			w.WriteHeader(400)
@@ -92,23 +110,4 @@ func Handleswitch(w http.ResponseWriter, r *http.Request) {
 		rezult.Result = render
 	}
 	tmpl.Execute(w, rezult)
-}
-func Downloadhanler(w http.ResponseWriter, r *http.Request) {
-	if r.Method == "POST" {
-		file := r.FormValue("extensions")
-		filename := fmt.Sprintf("asciiart.%s",file)
-
-		w.Header().Set("Content-Disposition", fmt.Sprintf("attachment; filename=\"%s\"",filename))
-
-		switch file{
-		case "csv":
-			w.Header().Set("Content-Type", "csv/text")
-			w.Write([]byte("column1, column2\ndata1,data2"))
-		case "pdf":
-			w.Header().Set("Content-Type", "application/pdf")
-		default:
-			w.Header().Set("Content-Type", "text/plain")
-			w.Write([]byte("this is plain text download"))
-		}
-	}
 }
