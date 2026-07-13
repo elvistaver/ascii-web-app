@@ -37,24 +37,8 @@ func Handleascii(w http.ResponseWriter, r *http.Request) {
 	if r.Method == "POST" {
 		text := r.FormValue("text")
 		banner := r.FormValue("banner")
-		downloadfile := r.FormValue("extensions")
-
-		if downloadfile!=""{
-			filename := fmt.Sprintf("asciiart.%s",downloadfile)
-
-		w.Header().Set("Content-Disposition", fmt.Sprintf("attachment; filename=\"%s\"",filename))
-
-			switch downloadfile{
-			case "csv":
-				w.Header().Set("Content-Type", "csv/text")
-				w.Write([]byte("column1, column2\ndata1,data2"))
-			case "pdf":
-				w.Header().Set("Content-Type", "application/pdf")
-			default:
-				w.Header().Set("Content-Type", "text/plain")
-				w.Write([]byte("this is plain text download"))
-			}
-		}
+		exten := r.FormValue("extensions")
+		save:=r.FormValue("save")
 
 		if text == "" && banner == "" {
 			w.WriteHeader(400)
@@ -75,9 +59,19 @@ func Handleascii(w http.ResponseWriter, r *http.Request) {
 		rezult.Text = text
 		rezult.Banner = banner
 		rezult.Result = render
+
+		if save=="download"{
+			filename := fmt.Sprintf("asciiart.%s",exten)
+
+		w.Header().Set("Content-Disposition", fmt.Sprintf("attachment; filename=\"%s\"",filename))
+		w.Header().Set("Content-Type", "text/plain")
+		w.Write([]byte(render))
+		return
+		}
 	}
 	tmpl.Execute(w, rezult)
 }
+
 func Handleswitch(w http.ResponseWriter, r *http.Request) {
 	rezult := PageData{}
 
