@@ -13,7 +13,6 @@ func main() {
 	mux.HandleFunc("/", server.HandleHome)
 	mux.HandleFunc("/art", server.Handleascii)
 	mux.HandleFunc("/ascii-art-switch", server.Handleswitch)
-	mux.HandleFunc("/download", server.Downloadhanler)
 
 	fmt.Println("running server..http://localhost:8080")
 
