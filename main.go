@@ -1,9 +1,9 @@
 package main
 
 import (
+	"ascii-web-app/src/server"
 	"fmt"
 	"net/http"
-	"ascii-web-app/src/server"
 )
 
 func main() {
@@ -13,10 +13,11 @@ func main() {
 	mux.HandleFunc("/", server.HandleHome)
 	mux.HandleFunc("/art", server.Handleascii)
 	mux.HandleFunc("/ascii-art-switch", server.Handleswitch)
+	mux.HandleFunc("/download", server.Downloadhanler)
 
 	fmt.Println("running server..http://localhost:8080")
 
-	if err:=http.ListenAndServe(":8080", mux); err!=nil{
+	if err := http.ListenAndServe(":8080", mux); err != nil {
 		fmt.Println("error running server..")
 		return
 	}
