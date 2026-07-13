@@ -2,6 +2,7 @@ package server
 
 import (
 	"ascii-web-app/src/ascii"
+	"fmt"
 	"html/template"
 	"net/http"
 )
@@ -91,4 +92,23 @@ func Handleswitch(w http.ResponseWriter, r *http.Request) {
 		rezult.Result = render
 	}
 	tmpl.Execute(w, rezult)
+}
+func Downloadhanler(w http.ResponseWriter, r *http.Request) {
+	if r.Method == "POST" {
+		file := r.FormValue("extensions")
+		filename := fmt.Sprintf("asciiart.%s",file)
+
+		w.Header().Set("Content-Disposition", fmt.Sprintf("attachment; filename=\"%s\"",filename))
+
+		switch file{
+		case "csv":
+			w.Header().Set("Content-Type", "csv/text")
+			w.Write([]byte("column1, column2\ndata1,data2"))
+		case "pdf":
+			w.Header().Set("Content-Type", "application/pdf")
+		default:
+			w.Header().Set("Content-Type", "text/plain")
+			w.Write([]byte("this is plain text download"))
+		}
+	}
 }
