@@ -44,16 +44,16 @@ func Handleascii(w http.ResponseWriter, r *http.Request) {
 
 		w.Header().Set("Content-Disposition", fmt.Sprintf("attachment; filename=\"%s\"",filename))
 
-		switch downloadfile{
-		case "csv":
-			w.Header().Set("Content-Type", "csv/text")
-			w.Write([]byte("column1, column2\ndata1,data2"))
-		case "pdf":
-			w.Header().Set("Content-Type", "application/pdf")
-		default:
-			w.Header().Set("Content-Type", "text/plain")
-			w.Write([]byte("this is plain text download"))
-		}
+			switch downloadfile{
+			case "csv":
+				w.Header().Set("Content-Type", "csv/text")
+				w.Write([]byte("column1, column2\ndata1,data2"))
+			case "pdf":
+				w.Header().Set("Content-Type", "application/pdf")
+			default:
+				w.Header().Set("Content-Type", "text/plain")
+				w.Write([]byte("this is plain text download"))
+			}
 		}
 
 		if text == "" && banner == "" {
