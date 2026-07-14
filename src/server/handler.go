@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"html/template"
 	"net/http"
+	"strings"
 )
 
 type PageData struct {
@@ -38,7 +39,7 @@ func Handleascii(w http.ResponseWriter, r *http.Request) {
 		text := r.FormValue("text")
 		banner := r.FormValue("banner")
 		exten := r.FormValue("extensions")
-		save:=r.FormValue("save")
+		save := r.FormValue("save")
 
 		if text == "" && banner == "" {
 			w.WriteHeader(400)
@@ -60,13 +61,28 @@ func Handleascii(w http.ResponseWriter, r *http.Request) {
 		rezult.Banner = banner
 		rezult.Result = render
 
-		if save=="download"{
-			filename := fmt.Sprintf("asciiart.%s",exten)
+		if save == "download" {
+			filename := fmt.Sprintf("asciiart.%s", exten)
 
-		w.Header().Set("Content-Disposition", fmt.Sprintf("attachment; filename=\"%s\"",filename))
-		w.Header().Set("Content-Type", "text/plain")
-		w.Write([]byte(render))
-		return
+			w.Header().Set("Content-Disposition", fmt.Sprintf("attachment; filename=\"%s\"", filename))
+			if exten == "csv" {
+				w.Header().Set("Content-Type", "text/csv")
+				lines := strings.Split(render, "\n")
+				csv := ""
+				for _, line := range lines {
+					csv += fmt.Sprintf("\"%s\"\n", line)
+				}
+				w.Write([]byte(csv))
+				return
+			} else if exten == "pdf" {
+				w.Header().Set("Content-Type", "application/pdf")
+				w.Write([]byte(render))
+				return
+			} else {
+				w.Header().Set("Content-Type", "text/plain")
+			}
+			w.Write([]byte(render))
+			return
 		}
 	}
 	tmpl.Execute(w, rezult)
