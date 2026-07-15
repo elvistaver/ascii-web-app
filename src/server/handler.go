@@ -61,7 +61,7 @@ func Handleascii(w http.ResponseWriter, r *http.Request) {
 		rezult.Banner = banner
 		rezult.Result = render
 
-		if save == "download" && text!="" {
+		if save == "download" && text!=""{
 			filename := fmt.Sprintf("asciiart.%s", exten)
 
 			w.Header().Set("Content-Disposition", fmt.Sprintf("attachment; filename=\"%s\"", filename))
@@ -121,3 +121,6 @@ func Handleswitch(w http.ResponseWriter, r *http.Request) {
 	}
 	tmpl.Execute(w, rezult)
 }
+
+
+
