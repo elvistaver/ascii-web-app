@@ -61,11 +61,11 @@ func Handleascii(w http.ResponseWriter, r *http.Request) {
 		rezult.Banner = banner
 		rezult.Result = render
 
-		if save == "download" {
+		if save == "download" && text!="" {
 			filename := fmt.Sprintf("asciiart.%s", exten)
 
 			w.Header().Set("Content-Disposition", fmt.Sprintf("attachment; filename=\"%s\"", filename))
-			if exten == "csv" {
+			if exten == "csv" && text!="" {
 				w.Header().Set("Content-Type", "text/csv")
 				lines := strings.Split(render, "\n")
 				csv := ""
@@ -78,7 +78,7 @@ func Handleascii(w http.ResponseWriter, r *http.Request) {
 				w.Header().Set("Content-Type", "application/pdf")
 				w.Write([]byte(render))
 				return
-			} else {
+			} else{
 				w.Header().Set("Content-Type", "text/plain")
 			}
 			w.Write([]byte(render))
