@@ -6,15 +6,12 @@
     <title>art</title>
 </head>
 <style>
-.body-class{
-    background-image: url('le.jpg');
-}
 .container {
-  max-width: 1200px;
-  width: 90%;
+  max-width: 1100px;
+  width: 80%;
   margin: 0 auto;
   
-  background-color: #f3ebeb;       /* Box background color */
+  background-color: hsl(171, 33%, 16%);       /* Box background color */
   border: 2px solid #faf6f6;       /* Clean outline border */
   border-radius: 16px;             /* Rounded corners */
   padding: 40px;                   /* Breathing room inside the box */
@@ -25,20 +22,23 @@
 .Responsive {
   width: 100%;               /* Forces the art to match the box size */
   max-width: 100%;           /* Prevents stretching past original size */
-  height: auto;              /* Maintains correct aspect ratio (no distortion) */
+  height:auto;              /* Maintains correct aspect ratio (no distortion) */
   display: block;            /* Removes annoying bottom white-space gaps */
   border-radius: 8px;
   line-height: 1.6;
 }
+.hero-box {
+  background-image: url("/cover/download.jpg") !important;
+  background-size: cover !important;
+}
+
 </style>
-<body class="body-class">
-    <h1  style="text-align: center;"><i>Ascii-Art Generator</i></h1>
-    <br>
-    <br>
+<body class="hero-box">
+    <h1  style="text-align: center; color: #faf6f6;"><i>Ascii-Art Generator🎨</i></h1>
     <br>
     <div class="container" class="Responsive">
         <form action="/art" method="post">
-            <textarea name="text" placeholder="write text" style="width: 240px; height: 220px;">{{.Text}}</textarea>
+            <textarea name="text" placeholder="write text" style="width: 240px; height: 200px; background-color: white;">{{.Text}}></textarea>
             <br>
             <select name="banner">
                 <option value="standard">standard</option>
@@ -61,7 +61,7 @@
    
     <div class="container" class="Responsive">
         {{if .Result}}
-        <textarea style="background-color: white; color: rgb(14, 13, 13); width: 1100px; height: 300px;" name="result" placeholder="result" class="Responsive">{{.Result}}</textarea>
+        <textarea style="background-color: white; color: rgb(14, 13, 13); width: 1100px; height: 200px;" name="result" placeholder="result" class="Responsive">{{.Result}}</textarea>
         {{end}}
         <br>
         <button onclick="history.back()">back</button>
