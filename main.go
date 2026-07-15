@@ -9,6 +9,7 @@ import (
 func main() {
 
 	mux := http.NewServeMux()
+	 mux.Handle("/cover/", http.StripPrefix("/cover/", http.FileServer(http.Dir("./cover"))))
 
 	mux.HandleFunc("/", server.HandleHome)
 	mux.HandleFunc("/art", server.Handleascii)
